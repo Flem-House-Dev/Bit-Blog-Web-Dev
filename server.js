@@ -9,7 +9,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 const helpers = require("./utils/helpers");
-require('dotenv').config();
+// require('dotenv').config();
 
 // Server initialization
 const app = express();
@@ -17,7 +17,7 @@ const PORT = process.env.DB_URL || 3001;
 
 // Session configuration
 const sess = {
-    secret: SESS_SECRET,
+    secret: "salsa",
     cookie: {},
     resave: false,
     saveUninitialized: true,
