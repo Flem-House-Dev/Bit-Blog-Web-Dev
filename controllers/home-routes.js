@@ -38,4 +38,13 @@ router.get('/blog/:id', async (req,res) => {
     }
 });
 
+router.get('/blog-form', async (req,res) => {
+    try {
+        res.render('blog-form');
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
