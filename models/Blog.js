@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-const { blockParams } = require("handlebars");
 
 class Blog extends Model {}
 
