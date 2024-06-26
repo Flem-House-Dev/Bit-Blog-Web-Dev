@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
 
         const dbBlogData = await Blog.findAll();
         const blogs = dbBlogData.map((blog) =>
-            blog.get({ plain: true})
+            blog.get({ plain: true })
         );
 
         res.render('homepage', {
@@ -21,19 +21,19 @@ router.get('/', async (req, res) => {
 });
 
 // --------  Blog page -------- 
-router.get('/blog/:id', async (req,res) => {
+router.get('/blog/:id', async (req, res) => {
     try {
         const dbBlogData = await Blog.findByPk(req.params.id);
 
-        if(!dbBlogData) {
+        if (!dbBlogData) {
             res.status(404).json({ message: 'No blog found with this id' });
             return;
         };
 
         const blog = dbBlogData.get({ plain: true });
 
-        res.render('blog-page', {blog})
-        
+        res.render('blog-page', { blog })
+
     } catch (err) {
         console.error(err);
         res.status(500).json(err);
@@ -41,7 +41,7 @@ router.get('/blog/:id', async (req,res) => {
 });
 
 // -------- New Blog form -------- 
-router.get('/blog-form', async (req,res) => {
+router.get('/blog-form', async (req, res) => {
     try {
         res.render('blog-form');
     } catch (err) {
@@ -51,14 +51,14 @@ router.get('/blog-form', async (req,res) => {
 });
 
 // -------- To Login screen -------- 
-router.get('/login', (req,res) => {
-    
+router.get('/login', (req, res) => {
+
 
     res.render('login');
 });
 
 // -------- To Sign Up screen -------- 
-router.get('/sign-up', (req,res) => {
+router.get('/sign-up', (req, res) => {
     res.render('new-user');
 });
 
