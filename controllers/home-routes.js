@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
 
     res.render("homepage", {
       blogs,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.error(err);
@@ -29,7 +30,10 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 
     const blog = dbBlogData.get({ plain: true });
 
-    res.render("blog-page", { blog });
+    res.render("blog-page", { 
+      blog,
+      loggedIn: req.session.loggedIn,
+     });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
@@ -39,7 +43,9 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 // -------- New Blog form --------
 router.get("/blog-form", withAuth, async (req, res) => {
   try {
-    res.render("blog-form");
+    res.render("blog-form", {
+      loggedIn: req.session.loggedIn,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
