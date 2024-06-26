@@ -7,10 +7,10 @@ const blogFormSubmitHandler = async (event) => {
     const formData = new FormData(blogForm);
     const blogData = {
         title: formData.get('blog-form-title'),
-        author: formData.get('blog-form-author'),
+        // author: formData.get('blog-form-author'),
         content: formData.get('blog-text-area')
     };
-console.log(blogData);
+// console.log(req.session.username);
     try {
         const response = await fetch('/api/blog-form/', {
             method: 'POST',
