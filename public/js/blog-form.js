@@ -1,20 +1,19 @@
-const { application } = require("express");
 
 const blogFormSubmitHandler = async (event) => {
     event.preventDefault();
 
     const blogForm = document.getElementById('blog-post-form');
-
+// console.log("blog form:", blogForm);
     const formData = new FormData(blogForm);
     const blogData = {
         title: formData.get('blog-form-title'),
         author: formData.get('blog-form-author'),
         content: formData.get('blog-text-area')
     };
-
+console.log(blogData);
     try {
-        const response = await fetch('/api/blog-form', {
-            method: POST,
+        const response = await fetch('/api/blog-form/', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -34,5 +33,5 @@ const blogFormSubmitHandler = async (event) => {
 };
 
 document
-    .querySelector('.blog-form')
+    .querySelector('#blog-post-form')
     .addEventListener('submit', blogFormSubmitHandler);
