@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Blog } = require('../models');
 
+// -------- Home page -------- 
 router.get('/', async (req, res) => {
     try {
 
@@ -19,6 +20,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// --------  Blog page -------- 
 router.get('/blog/:id', async (req,res) => {
     try {
         const dbBlogData = await Blog.findByPk(req.params.id);
@@ -38,6 +40,7 @@ router.get('/blog/:id', async (req,res) => {
     }
 });
 
+// -------- New Blog form -------- 
 router.get('/blog-form', async (req,res) => {
     try {
         res.render('blog-form');
@@ -45,6 +48,18 @@ router.get('/blog-form', async (req,res) => {
         console.error(err);
         res.status(500).json(err);
     }
+});
+
+// -------- To Login screen -------- 
+router.get('/login', (req,res) => {
+    
+
+    res.render('login');
+});
+
+// -------- To Sign Up screen -------- 
+router.get('/sign-up', (req,res) => {
+    res.render('new-user');
 });
 
 module.exports = router;
