@@ -36,7 +36,7 @@ router.post("/login", async (req, res) => {
 });
 
 // ------- Sign up new user -------
-router.post("sign-up", async (req,res) => {
+router.post("/sign-up", async (req,res) => {
     try {
         const dbUserData = await User.create({
             username: req.body.username,
@@ -55,7 +55,7 @@ router.post("sign-up", async (req,res) => {
 });
 
 // ------- Log out -------
-router.post('logout', (req, res) => {
+router.post('/logout', (req, res) => {
     if(req.session.loggedIn) {
         req.session.destroy(() => {
             res.status(200).end();
