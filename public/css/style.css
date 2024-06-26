@@ -1,3 +1,7 @@
 .form-signin {
     max-width: 330px;
 }
+
+#error-message {
+    height: 24px;
+}
