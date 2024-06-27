@@ -5,7 +5,9 @@ const withAuth = require("../utils/auth");
 // -------- Home page --------
 router.get("/", async (req, res) => {
   try {
-    const dbBlogData = await Blog.findAll();
+    const dbBlogData = await Blog.findAll({
+      order: [["post_date", "DESC"]],
+    });
     const blogs = dbBlogData.map((blog) => blog.get({ plain: true }));
 
     res.render("homepage", {
@@ -30,10 +32,10 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 
     const blog = dbBlogData.get({ plain: true });
 
-    res.render("blog-page", { 
+    res.render("blog-page", {
       blog,
       loggedIn: req.session.loggedIn,
-     });
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
@@ -66,7 +68,5 @@ router.get("/login", (req, res) => {
 router.get("/sign-up", (req, res) => {
   res.render("new-user");
 });
-
-
 
 module.exports = router;
