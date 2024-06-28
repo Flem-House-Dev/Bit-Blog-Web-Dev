@@ -24,12 +24,10 @@ Blog.hasMany(Comment, {
 
 Comment.belongsTo(User, {
     foreignKey: "id",
-    onDelete: 'CASCADE'
 });
 
 Comment.belongsTo(Blog, {
     foreignKey: "id",
-    onDelete: 'CASCADE'
 });
 
 module.exports = { User, Blog };
