@@ -60,7 +60,31 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 // -------- New Blog form --------
 router.get("/blog-form", withAuth, async (req, res) => {
   try {
+
     res.render("blog-form", {
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
+
+// -------- Update Blog form --------
+
+router.get(`/blog-update/:id`, async (req, res) => {
+  try {
+    const dbBlogData = await Blog.findByPk(req.params.id);
+
+    if(!dbBlogData) {
+      res.status(400).json({ message: "No blog found with this id!" });
+      return;
+    }
+
+    const blog = dbBlogData.get({ plain: true });
+
+    res.render("blog-update", {
+      blog,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {

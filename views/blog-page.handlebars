@@ -2,8 +2,10 @@
     <div class="card-body">
         <h3 class="card-title">{{blog.title}}</h3>
         <div class="card-text">
+            <p>{{format_date blog.post_date}}</p>
             <p>Author: {{blog.author.username}}</p>
             <p>{{blog.content}}</p>
         </div>
+        <a href="/blog-update/{{blog.id}}">Update Post</a>
     </div>
 </div>
