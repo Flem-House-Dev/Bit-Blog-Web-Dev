@@ -3,13 +3,14 @@ const blogFormUpdateHandler = async (event) => {
 
     const blogForm = document.getElementById("blog-update-form");
 
-
     const formData = new FormData(blogForm);
     const blogData = {
         id: formData.get("blog-id"),
         title: formData.get("blog-form-title"),
         content: formData.get("blog-text-area"),
     };
+
+    console.log("Blog data: ",blogData);
 
     try {
         const response = await fetch(`/api/blog-form/${blogData.id}`, {
