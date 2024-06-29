@@ -1,18 +1,19 @@
 
 // const express = require('express') ;
 const router = require('express').Router();
-const { Blog } = require('../../models')
+const { Blog, User } = require('../../models')
 
 router.post('/', async (req, res) => {
 
     try {
-        const { title, content } = req.body;
-        // const author = req.session.username;
-        console.log("Session user: ", req.session);
+        // const { title, content } = req.body;
+
         const newBlogPost = await Blog.create({
-            title,
-            author: req.session.username,
-            content,
+            // title,
+            // author: req.session.username,
+            // content,
+            ...req.body,
+            author_id: req.session.user_id,
             post_date: new Date()
         });
 
