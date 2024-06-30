@@ -61,7 +61,6 @@ router.get("/blog/:id", withAuth, async (req, res) => {
     }
 
     const blog = dbBlogData.get({ plain: true });
-    console.log(blog);
 
     res.render("blog-page", {
       blog,

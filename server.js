@@ -4,6 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const addUserToLocals = require('./utils/user');
 
 // In-app imports
 const routes = require("./controllers");
@@ -36,11 +37,12 @@ app.set('view engine', 'handlebars');
 // Middle-ware
 app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(addUserToLocals);
 app.use(routes);
 
 
 // Static page
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Servier listener
 sequelize.sync({ force:false }).then(() => {
