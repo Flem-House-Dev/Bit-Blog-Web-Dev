@@ -1,13 +1,9 @@
 const deleteBlogHandler = async (event) => {
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this blog post?"
+    );
 
-    // console.log(event);
-    // if(event.target.hasAttribute('data-id')) {
-    //     const id = event.target.getAttribute('data-id');
-    // }
-
-    const confirmDelete = confirm('Are you sure you want to delete this blog post?');
-
-    if(confirmDelete) {
+    if (confirmDelete) {
         try {
             const id = event.target.dataset.id;
 
@@ -16,13 +12,14 @@ const deleteBlogHandler = async (event) => {
                 method: "DELETE",
             });
             if (response.ok) {
-                window.location.href = '/';
-            } 
+                window.location.href = "/";
+            }
         } catch (err) {
-            console.error('There was a problem with deleting the blog.', err);
+            console.error("There was a problem with deleting the blog.", err);
         }
-
     }
 };
 
-document.querySelector('#delete-post-btn').addEventListener("click", deleteBlogHandler);
+document
+    .querySelector("#delete-post-btn")
+    .addEventListener("click", deleteBlogHandler);

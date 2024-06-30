@@ -1,15 +1,13 @@
 <div class="card mb-3 shadow">
   <div class="card-body">
     <a class="text-decoration-none" href="/blog/{{id}}">
-    <h3 class="card-title ">{{title}} <small>3/6/2015</small></h3>
+      <h3 class="card-title">{{title}} <small>3/6/2015</small></h3>
     </a>
-    {{! <img class="thumbnail" src="https://placehold.it/850x350"> }}
     <p class="card-text">{{content}}</p>
     <div class="callout">
-      <ul class="menu simple">
-        <li><a href="#">Author: {{author.username}}</a></li>
-        <li><a href="#">Comments: 3</a></li>
-      </ul>
+
+      <p>Author: {{author.username}}</p>
+
     </div>
   </div>
 </div>

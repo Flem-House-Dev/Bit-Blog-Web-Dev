@@ -50,6 +50,7 @@ router.get("/blog/:id", withAuth, async (req, res) => {
     res.render("blog-page", {
       blog,
       loggedIn: req.session.loggedIn,
+      isAuthor: req.session.user_id === blog.author_id,
     });
   } catch (err) {
     console.error(err);
