@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Blog, User } = require("../models");
+const { Blog, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
 // -------- Home page --------
@@ -37,6 +37,21 @@ router.get("/blog/:id", withAuth, async (req, res) => {
           as: "author",
           attributes: ["username"],
         },
+        {
+          model: Comment,
+          as: "comments",
+          where: {
+            blog_id: req.params.id,
+          },
+          required: false,
+          include: [
+            {
+              model: User,
+              as: "commenter",
+              attributes: ["username"],
+            },
+          ],
+        },
       ],
     });
 
@@ -46,11 +61,13 @@ router.get("/blog/:id", withAuth, async (req, res) => {
     }
 
     const blog = dbBlogData.get({ plain: true });
+    console.log(blog);
 
     res.render("blog-page", {
       blog,
       loggedIn: req.session.loggedIn,
       isAuthor: req.session.user_id === blog.author_id,
+      comments: blog.comments,
     });
   } catch (err) {
     console.error(err);
@@ -61,7 +78,6 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 // -------- New Blog form --------
 router.get("/blog-form", withAuth, async (req, res) => {
   try {
-
     res.render("blog-form", {
       loggedIn: req.session.loggedIn,
     });
@@ -77,7 +93,7 @@ router.get(`/blog-update/:id`, async (req, res) => {
   try {
     const dbBlogData = await Blog.findByPk(req.params.id);
 
-    if(!dbBlogData) {
+    if (!dbBlogData) {
       res.status(400).json({ message: "No blog found with this id!" });
       return;
     }
