@@ -7,6 +7,8 @@
             <p>{{blog.content}}</p>
         </div>
         <a href="/blog-update/{{blog.id}}" class="btn btn-primary">Update Post</a>
-        <button id="delete-post-btn" class="btn btn-danger">Delete Post</button>
+        <button id="delete-post-btn" class="btn btn-danger" data-id="{{blog.id}}">Delete Post</button>
     </div>
 </div>
+
+<script src="../../js/blog-delete.js"></script>
