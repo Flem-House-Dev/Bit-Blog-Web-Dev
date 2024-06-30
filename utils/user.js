@@ -4,8 +4,6 @@ const addUserToLocals = (req, res, next) => {
             username: req.session.username,
             id: req.session.id,
         };
-        console.log("I'm helping!!", req.session);
-        console.log("local: ",res.locals);
     }
     next();
 };

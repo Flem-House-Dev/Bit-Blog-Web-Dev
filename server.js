@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
+const { engine } = require("express-handlebars");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const addUserToLocals = require('./utils/user');
 
@@ -30,8 +31,13 @@ const sess = {
 app.use(session(sess));
 
 // Handlebars initialization
-const hbs = exphbs.create({ helpers });
-app.engine('handlebars', hbs.engine);
+// const hbs = exphbs.create({ helpers });
+const hbs = engine({
+    helpers: helpers,
+    // You can add more configuration options here if needed
+  });
+// app.engine('handlebars', hbs.engine);
+app.engine('handlebars', hbs);
 app.set('view engine', 'handlebars');
 
 // Middle-ware
