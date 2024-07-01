@@ -62,11 +62,15 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 
     const blog = dbBlogData.get({ plain: true });
 
+    blog.comments = blog.comments.map(comment => ({
+      ...comment,
+      isCommenter: comment.author_id === req.session.user_id
+    }));
+
     res.render("blog-page", {
       blog,
       loggedIn: req.session.loggedIn,
       isAuthor: req.session.user_id === blog.author_id,
-      comments: blog.comments,
     });
   } catch (err) {
     console.error(err);

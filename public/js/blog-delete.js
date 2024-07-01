@@ -7,7 +7,7 @@ const deleteBlogHandler = async (event) => {
         try {
             const id = event.target.dataset.id;
 
-            console.log("id to delete: ", id);
+            // console.log("id to delete: ", id);
             const response = await fetch(`../api/blog-delete/${id}`, {
                 method: "DELETE",
             });
