@@ -1,11 +1,18 @@
 const router = require("express").Router();
-const { Blog } = require("../models");
+const { Blog, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
 // -------- Home page --------
 router.get("/", async (req, res) => {
   try {
     const dbBlogData = await Blog.findAll({
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: ["username"],
+        },
+      ],
       order: [["post_date", "DESC"]],
     });
     const blogs = dbBlogData.map((blog) => blog.get({ plain: true }));
@@ -23,7 +30,30 @@ router.get("/", async (req, res) => {
 // --------  Blog page --------
 router.get("/blog/:id", withAuth, async (req, res) => {
   try {
-    const dbBlogData = await Blog.findByPk(req.params.id);
+    const dbBlogData = await Blog.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: ["username"],
+        },
+        {
+          model: Comment,
+          as: "comments",
+          where: {
+            blog_id: req.params.id,
+          },
+          required: false,
+          include: [
+            {
+              model: User,
+              as: "commenter",
+              attributes: ["username"],
+            },
+          ],
+        },
+      ],
+    });
 
     if (!dbBlogData) {
       res.status(404).json({ message: "No blog found with this id" });
@@ -32,9 +62,15 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 
     const blog = dbBlogData.get({ plain: true });
 
+    blog.comments = blog.comments.map(comment => ({
+      ...comment,
+      isCommenter: comment.author_id === req.session.user_id
+    }));
+
     res.render("blog-page", {
       blog,
       loggedIn: req.session.loggedIn,
+      isAuthor: req.session.user_id === blog.author_id,
     });
   } catch (err) {
     console.error(err);
@@ -46,6 +82,29 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 router.get("/blog-form", withAuth, async (req, res) => {
   try {
     res.render("blog-form", {
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
+
+// -------- Update Blog form --------
+
+router.get(`/blog-update/:id`, async (req, res) => {
+  try {
+    const dbBlogData = await Blog.findByPk(req.params.id);
+
+    if (!dbBlogData) {
+      res.status(400).json({ message: "No blog found with this id!" });
+      return;
+    }
+
+    const blog = dbBlogData.get({ plain: true });
+
+    res.render("blog-update", {
+      blog,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {

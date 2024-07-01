@@ -1,0 +1,49 @@
+<div class="comment card m-3 p-2 ">
+    <div class="card-body position-relative">
+        <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title mb-1">{{commenter.username}}</h5>
+            <small class="text-muted">{{format_date post_date}} at {{format_time post_date}}</small>
+        </div>
+        <div class="d-flex justify-content-between align-items-end" style="height: 47px;">
+            <p class="cared-text mb-0">{{text_content}}</p>
+            {{#if isCommenter}}
+            <div class="btn-group mt-3" role="group" aria-label="Comment Actions">
+
+                <button type="button" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#comment-modal-{{id}}">Update</button>
+
+                <button class="btn btn-sm btn-outline-danger delete-comment" data-comment-id="{{id}}">Delete</button>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+{{!-- ------------------------ --}}
+<div class="modal" id="comment-modal-{{id}}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-flex">
+                    <form id="comment-form-{{id}}">
+                        <textarea name="comment-textarea" id="comment-textarea-{{id}}" class="w-100"
+                            maxlength="500">{{text_content}}</textarea>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary update-comment" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="update-comment-btn" class="btn btn-primary" data-comment-id="{{id}}">Save
+                    changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

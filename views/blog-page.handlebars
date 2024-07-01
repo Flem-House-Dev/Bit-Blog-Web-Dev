@@ -2,8 +2,59 @@
     <div class="card-body">
         <h3 class="card-title">{{blog.title}}</h3>
         <div class="card-text">
-            <p>Author: {{blog.author}}</p>
+            <p>{{format_date blog.post_date}} at {{format_time blog.post_date}}</p>
+            <p>Author: {{blog.author.username}}</p>
             <p>{{blog.content}}</p>
+        </div>
+        {{#if isAuthor}}
+        <a href="/blog-update/{{blog.id}}" class="btn btn-primary">Update Post</a>
+        <button id="delete-post-btn" class="btn btn-danger" data-id="{{blog.id}}">Delete Post</button>
+        <script src="../../js/blog-delete.js"></script>
+        {{/if}}
+    </div>
+
+    <h4 class="m-3">Comments:</h4>
+    <button type="button" class="btn btn-primary col-md-3 col-lg-2 ms-3" data-bs-toggle="modal"
+        data-bs-target="#comment-modal">Add
+        comment</button>
+
+    {{#each blog.comments}}
+    {{!-- <div class="comment card m-3 p-2">
+        <h>{{commenter.username}}</h>
+        <p>{{format_date post_date}} at {{format_time post_date}}</p>
+        <p>{{text_content}}</p>
+    </div> --}}
+    {{> comment-cards}}
+    {{/each}}
+
+</div>
+
+
+{{!-- Post comment modal --}}
+<div class="modal" id="comment-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-flex">
+                    <form id="comment-form">
+                        <textarea name="comment-textarea" id="comment-textarea" class="w-100"></textarea>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="save-comment-btn" class="btn btn-primary">Save changes</button>
+            </div>
+
         </div>
     </div>
 </div>
+
+<script src="/js/blog-comment.js"></script>
