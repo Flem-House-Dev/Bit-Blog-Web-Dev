@@ -8,13 +8,13 @@
         </div>
         {{#if isAuthor}}
         <a href="/blog-update/{{blog.id}}" class="btn btn-primary">Update Post</a>
-        <button id="delete-post-btn" class="btn btn-danger" data-id="{{blog.id}}">Delete Post</button>
+        <button id="delete-post-btn" class="btn btn-danger mt-2 mt-md-0" data-id="{{blog.id}}">Delete Post</button>
         <script src="../../js/blog-delete.js"></script>
         {{/if}}
     </div>
 
     <h4 class="m-3">Comments:</h4>
-    <button type="button" class="btn btn-primary col-md-3 col-lg-2 ms-3" data-bs-toggle="modal"
+    <button type="button" class="btn btn-primary col-md-3 col-lg-2" data-bs-toggle="modal"
         data-bs-target="#comment-modal">Add
         comment</button>
 
