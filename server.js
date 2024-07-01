@@ -15,7 +15,7 @@ const helpers = require("./utils/helpers");
 
 // Server initialization
 const app = express();
-const PORT = process.env.DB_URL || 3001;
+const PORT = process.env.PORT || 3001;
 
 // Session configuration
 const sess = {
