@@ -1,3 +1,5 @@
+
+
 // ---- Post comment ----
 const commentPostHandler = async () => {
     try {
@@ -30,9 +32,34 @@ const commentPostHandler = async () => {
 // ----- Update comment -----
 
 const commentUpdateHandler = async (event) => {
-    
-    const updatedCommentText = document.getElementById
+
+    const commentId = event.target.getAttribute('data-comment-id');
+    const commentTextArea = document.querySelector(`#comment-textarea-${commentId}`);
+    const commentText = commentTextArea.value.trim();
+
+    if (commentText) {
+        try {
+            const response = await fetch(`/api/blog-comment/${commentId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text_content: commentText }),
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error("Error updating comment", response.statusText);
+            }
+        } catch (err) {
+            console.error("Error:", err);
+        }
+    }
+
 };
+
+
 
 // ----- Delete comment -----
 
@@ -58,31 +85,34 @@ const commentDeleteHandler = async (event) => {
 };
 
 // ---------- Event handlers ----------
-// -- Add comment
-document
-    .querySelector('#save-comment-btn')
-    .addEventListener('click', commentPostHandler);
+document.addEventListener('DOMContentLoaded', () => {
 
-// -- Update comment
-const updateButtons = document.querySelectorAll('.update-comment');
+    // -- Add comment
+    document
+        .querySelector('#save-comment-btn')
+        .addEventListener('click', commentPostHandler);
 
-updateButtons.forEach(button => {
-    button.addEventListener('click', commentUpdateHandler);
-});
+    // -- Update comment
+    const updateButtons = document.querySelectorAll('#update-comment-btn');
 
-// -- Delete Comment
-const deleteButtons = document.querySelectorAll('.delete-comment');
-
-deleteButtons.forEach(button => {
-    button.addEventListener('click', commentDeleteHandler);
-});
-
-// -- Close modal
-document.addEventListener('DOMContentLoaded', function() {
-    var commentModal = document.getElementById('comment-modal');
-    var commentForm = document.getElementById('comment-form');
-
-    commentModal.addEventListener('hidden.bs.modal', function () {
-      commentForm.reset();
+    updateButtons.forEach(button => {
+        button.addEventListener('click', commentUpdateHandler);
     });
-  });
+
+    // -- Delete Comment
+    const deleteButtons = document.querySelectorAll('.delete-comment');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', commentDeleteHandler);
+    });
+
+    // -- Close modal
+    document.addEventListener('DOMContentLoaded', function () {
+        var commentModal = document.getElementById('comment-modal');
+        var commentForm = document.getElementById('comment-form');
+
+        commentModal.addEventListener('hidden.bs.modal', function () {
+            commentForm.reset();
+        });
+    });
+});
