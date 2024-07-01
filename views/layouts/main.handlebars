@@ -19,9 +19,9 @@
 
             <div class="container-fluid">
                 <span class="d-lg-none">
-                {{#if user}}
+                    {{#if user}}
                     <p><strong>{{user.username}}</strong></p>
-                {{/if}}
+                    {{/if}}
                 </span>
 
                 <a class="navbar-brand" href="#">Our Brand</a>
@@ -42,21 +42,20 @@
                         <li class="nav-item">
                             <button class="nav-link " id="logOutBtn">Log Out</button>
                         </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="deleteUserBtn" href="/">Delete Account</button>
+                        </li>
                         {{else}}
                         <li class="nav-item">
                             <a class="nav-link" id="logInBtn" href="/login">Log In</a>
                         </li>
                         {{/if}}
-
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                        </li>
                     </ul>
                 </div>
                 <span class="d-none d-lg-inline">
-                {{#if user}}
+                    {{#if user}}
                     <p><strong>{{user.username}}</strong></p>
-                {{/if}}
+                    {{/if}}
                 </span>
 
             </div>
@@ -88,6 +87,7 @@
 
     {{#if loggedIn}}
     <script src="/js/logout.js"></script>
+    <script src="/js/delete-user.js"></script>
     {{/if}}
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

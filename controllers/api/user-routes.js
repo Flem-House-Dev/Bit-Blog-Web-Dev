@@ -57,6 +57,25 @@ router.post("/sign-up", async (req, res) => {
   }
 });
 
+// ------- Delete user account-------
+
+router.delete("/", async (req, res) => {
+  const userId = req.session.user_id;
+
+  try {
+    await User.destroy({
+      where: {
+        id: userId,
+      }
+    });
+    req.session.loggedIn = false;
+    res.json({ message: "User deleted successfully" })
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error deleting user" });
+  }
+});
+
 // ------- Log out -------
 router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
