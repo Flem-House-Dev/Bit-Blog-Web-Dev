@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const textArea = document.querySelector('#blog-text-area');
+    if (textArea) {
+        textArea.focus();
+        textArea.setSelectionRange(textArea.value.length, textArea.value.length);
+    }
+});
+
 const blogFormUpdateHandler = async (event) => {
     event.preventDefault();
 
