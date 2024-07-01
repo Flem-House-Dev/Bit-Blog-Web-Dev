@@ -8,8 +8,11 @@
             <p class="cared-text mb-0">{{text_content}}</p>
             {{#if isCommenter}}
             <div class="btn-group mt-3" role="group" aria-label="Comment Actions">
+
+                {{!-- update button to trigger modal --}}
                 <button class="btn btn-sm btn-outline-primary me-2 update-comment"
                     data-comment-id="{{id}}">Update</button>
+
                 <button class="btn btn-sm btn-outline-danger delete-comment" data-comment-id="{{id}}">Delete</button>
             </div>
             {{/if}}
@@ -17,4 +20,34 @@
     </div>
 </div>
 
-{{!-- <script src="/js/blog-comment.js"></script> --}}
+{{!-- --- --}}
+{{!-- This button is a reference for modal trigger --}}
+  <button type="button" class="btn btn-primary col-md-3 col-lg-2 ms-3" data-bs-toggle="modal"
+        data-bs-target="#comment-modal">Add
+        comment</button>
+
+<div class="modal" id="comment-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-flex">
+                    <form id="comment-form">
+                        <textarea name="comment-textarea" id="comment-textarea" class="w-100"></textarea>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="save-comment-btn" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

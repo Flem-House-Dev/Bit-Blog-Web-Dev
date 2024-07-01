@@ -1,3 +1,4 @@
+// ---- Post comment ----
 const commentPostHandler = async () => {
     try {
         const commentTextContent = document.querySelector('#comment-textarea').value.trim();
@@ -26,7 +27,14 @@ const commentPostHandler = async () => {
     }
 };
 
-// ----- Delete Comments -----
+// ----- Update comment -----
+
+const commentUpdateHandler = async (event) => {
+    
+    const updatedCommentText = document.getElementById
+};
+
+// ----- Delete comment -----
 
 const commentDeleteHandler = async (event) => {
 
@@ -49,13 +57,32 @@ const commentDeleteHandler = async (event) => {
     }
 };
 
-// ----- Event handlers -----
+// ---------- Event handlers ----------
+// -- Add comment
 document
     .querySelector('#save-comment-btn')
     .addEventListener('click', commentPostHandler);
 
+// -- Update comment
+const updateButtons = document.querySelectorAll('.update-comment');
+
+updateButtons.forEach(button => {
+    button.addEventListener('click', commentUpdateHandler);
+});
+
+// -- Delete Comment
 const deleteButtons = document.querySelectorAll('.delete-comment');
 
 deleteButtons.forEach(button => {
     button.addEventListener('click', commentDeleteHandler);
 });
+
+// -- Close modal
+document.addEventListener('DOMContentLoaded', function() {
+    var commentModal = document.getElementById('comment-modal');
+    var commentForm = document.getElementById('comment-form');
+
+    commentModal.addEventListener('hidden.bs.modal', function () {
+      commentForm.reset();
+    });
+  });

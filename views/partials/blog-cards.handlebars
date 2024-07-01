@@ -1,8 +1,12 @@
 <div class="card mb-3 shadow">
   <div class="card-body">
-    <a class="text-decoration-none" href="/blog/{{id}}">
-      <h3 class="card-title">{{title}} <small>{{format_date blog.post_date}}</small></h3>
-    </a>
+    <div class="d-flex justify-content-between align-items-start">
+      <a class="text-decoration-none" href="/blog/{{id}}">
+        <h3 class="card-title">{{title}}</h3>
+      </a>
+      <small> {{format_date post_date}} at {{format_time post_date}}</small>
+    </div>
+
     <p class="card-text">{{content}}</p>
     <div class="callout">
 

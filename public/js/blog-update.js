@@ -10,7 +10,7 @@ const blogFormUpdateHandler = async (event) => {
         content: formData.get("blog-text-area"),
     };
 
-    console.log("Blog data: ",blogData);
+    // console.log("Blog data: ",blogData);
 
     try {
         const response = await fetch(`/api/blog-form/${blogData.id}`, {
