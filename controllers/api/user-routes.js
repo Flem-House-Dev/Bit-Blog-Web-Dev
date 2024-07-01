@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { json } = require("sequelize");
 const { User } = require("../../models");
 
 // ------- Login -------
@@ -48,8 +49,13 @@ router.post("/sign-up", async (req, res) => {
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
       res.status(200).json(dbUserData);
     });
+
+    console.log("Req.session: ", req.session)
+    // await req.session.save();
+    // res.status(200).json(dbUserData);
     
   } catch (err) {
     console.error(err);
@@ -69,7 +75,10 @@ router.delete("/", async (req, res) => {
       }
     });
     req.session.loggedIn = false;
-    res.json({ message: "User deleted successfully" })
+    res.json({ message: "User deleted successfully" });
+    req.session.destroy(() => {
+      res.status(200).end();
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error deleting user" });

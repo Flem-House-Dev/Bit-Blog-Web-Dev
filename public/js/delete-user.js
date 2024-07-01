@@ -11,7 +11,7 @@ async function deleteUser (userId) {
             console.error("Error: ",err);
         }
     }
-    window.location.href = "/";
+    window.location.reload();
 };
 
 document
