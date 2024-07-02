@@ -15,7 +15,7 @@
 
     <h4 class="m-3">Comments:</h4>
     <button type="button" class="btn btn-primary col-md-3 col-lg-2" data-bs-toggle="modal"
-        data-bs-target="#comment-modal">Add
+        data-bs-target="#new-comment-modal">Add
         comment</button>
 
     {{#each blog.comments}}
@@ -31,7 +31,7 @@
 
 
 {{!-- Post comment modal --}}
-<div class="modal" id="comment-modal" tabindex="-1">
+<div class="modal" id="new-comment-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -43,7 +43,7 @@
             <div class="modal-body">
                 <div class="container-flex">
                     <form id="comment-form">
-                        <textarea name="comment-textarea" id="comment-textarea" class="w-100"></textarea>
+                        <textarea name="new-comment-textarea" id="new-comment-textarea" class="w-100"></textarea>
                     </form>
                 </div>
             </div>

@@ -32,3 +32,8 @@ const blogFormSubmitHandler = async (event) => {
 document
     .querySelector("#blog-post-form")
     .addEventListener("submit", blogFormSubmitHandler);
+
+document.addEventListener("DOMContentLoaded", function () {
+    const titleInput = document.getElementById("blog-form-title");
+    titleInput.focus();
+});
