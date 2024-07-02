@@ -49,7 +49,6 @@ app.use(addUserToLocals);
 app.use(routes);
 
 
-// Static page
 
 // Servier listener
 sequelize.sync({ force:false }).then(() => {

@@ -1,6 +1,11 @@
 const signUpFormHandler = async (event) => {
     event.preventDefault();
 
+    function displayErrorMessage(message) {
+        const errorMessageEl = document.querySelector("#signup-error-message");
+        errorMessageEl.textContent = message;
+    }
+
     const username = document.querySelector("#signUpUserName").value.trim();
     const email = document.querySelector("#signUpEmail").value.trim();
     const password = document.querySelector("#signUpPw").value.trim();
@@ -13,12 +18,21 @@ const signUpFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            // document.location.replace("/");
-            await window.location.replace("/");
-            await window.location.reload();
+            window.location.href = ('/');
         } else {
-            alert("Failed to sign up");
+            const errorData = await response.json();
+            if (errorData.errors) {
+                const errorMessage = `${errorData.message}\n${errorData.errors.join(
+                    "\n"
+                )}`;
+                displayErrorMessage(errorMessage);
+            } else {
+                displayErrorMessage(errorData.message || "Failed to sign up");
+            }
+            console.log(errorData);
         }
+    } else {
+        displayErrorMessage("Please fill in all fields");
     }
 };
 

@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
 
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
-      
+
       res.status(200).json({ message: "You are now logged in!" });
     });
   } catch (err) {
@@ -52,14 +52,55 @@ router.post("/sign-up", async (req, res) => {
       req.session.username = dbUserData.username;
       res.status(200).json(dbUserData);
     });
-
-    console.log("Req.session: ", req.session)
-    // await req.session.save();
-    // res.status(200).json(dbUserData);
-    
   } catch (err) {
     console.error(err);
-    res.status(500).json(err);
+    if (err.name === "SequelizeUniqueConstraintError") {
+      // Check which field caused the unique constraint error
+      const field = err.errors[0].path;
+      if (field === "email") {
+        res
+          .status(400)
+          .json({
+            message:
+              "This email address is already in use. Please use a different email.",
+          });
+      } else if (field === "username") {
+        res
+          .status(400)
+          .json({
+            message:
+              "This username is already taken. Please choose a different username.",
+          });
+      } else {
+        res
+          .status(400)
+          .json({ message: "This information is already in use." });
+      }
+    } else if (err.name === "SequelizeValidationError") {
+      const formattedErrors = err.errors.map((error) => {
+        let message = error.message;
+        if (error.validatorKey === "len" && error.path === "password") {
+          message = `Password must be between ${error.validatorArgs[0]} and ${error.validatorArgs[1]} characters long`;
+        }
+        if (error.validatorKey === "isEmail") {
+          message = "Please enter a valid email address";
+        }
+        return `${error.path.charAt(0).toUpperCase() + error.path.slice(1)
+          }: ${message}`;
+      });
+      res
+        .status(400)
+        .json({
+          message: "Please correct the following errors: ",
+          errors: formattedErrors,
+        });
+    } else {
+      res
+        .status(500)
+        .json({
+          message: "An error ocurred while creating user. Please try again",
+        });
+    }
   }
 });
 
@@ -72,7 +113,7 @@ router.delete("/", async (req, res) => {
     await User.destroy({
       where: {
         id: userId,
-      }
+      },
     });
     req.session.loggedIn = false;
     res.json({ message: "User deleted successfully" });
