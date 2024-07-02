@@ -2,7 +2,7 @@
 const commentPostHandler = async () => {
     try {
         const commentTextContent = document
-            .querySelector("#comment-textarea")
+            .querySelector("#new-comment-textarea")
             .value.trim();
         const pathSegments = window.location.pathname.split("/");
         if (pathSegments.length > 2) {

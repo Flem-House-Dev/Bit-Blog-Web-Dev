@@ -51,8 +51,10 @@ router.get("/blog/:id", withAuth, async (req, res) => {
               attributes: ["username"],
             },
           ],
+          order: [["post_date", "DESC"]],
         },
       ],
+      
     });
 
     if (!dbBlogData) {
@@ -61,6 +63,8 @@ router.get("/blog/:id", withAuth, async (req, res) => {
     }
 
     const blog = dbBlogData.get({ plain: true });
+
+    blog.comments.sort((a, b) => new Date(b.post_date) - new Date(a.post_date))
 
     blog.comments = blog.comments.map(comment => ({
       ...comment,
