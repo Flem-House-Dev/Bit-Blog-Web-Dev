@@ -85,14 +85,12 @@ router.post("/sign-up", async (req, res) => {
         if (error.validatorKey === "isEmail") {
           message = "Please enter a valid email address";
         }
-        return `${error.path.charAt(0).toUpperCase() + error.path.slice(1)
-          }: ${message}`;
+        return `${message}`;
       });
       res
         .status(400)
         .json({
-          message: "Please correct the following errors: ",
-          errors: formattedErrors,
+          message: `${formattedErrors}`,
         });
     } else {
       res
