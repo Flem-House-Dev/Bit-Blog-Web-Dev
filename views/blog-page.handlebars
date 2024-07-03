@@ -5,7 +5,8 @@
     <h3 class="card-title">{{blog.title}}</h3>
     <div class="card-text">
       
-      <p class="d-block d-md-inline mb-2 mb-md-0 text-muted">{{format_date blog.post_date}} at {{format_time blog.post_date}}</p>
+      {{!-- <p id="p-time" class="d-block d-md-inline mb-2 mb-md-0 text-muted">{{format_date blog.post_date}} at {{format_time blog.post_date}}</p> --}}
+        <p id="p-time" class="d-block d-md-inline mb-2 mb-md-0 text-muted" data-date="{{blog.post_date}}"></p>
       <p>Author: {{blog.author.username}}</p>
       <p>{{blog.content}}</p>
     </div>

@@ -142,3 +142,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// const pTIme = document.querySelector('#p-time');
+// const pdate = pTIme.dataset;
+// console.log(pdate);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const pTime = document.querySelector('#p-time');
+    if (pTime) {
+        const dateString = pTime.dataset.date;
+        const date = new Date(dateString);
+        
+        if (!isNaN(date.getTime())) {  // Check if date is valid
+            const options = { 
+                year: 'numeric', 
+                month: 'numeric', 
+                day: 'numeric', 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true
+            };
+            pTime.textContent = date.toLocaleString(undefined, options);
+        }
+    }
+});
