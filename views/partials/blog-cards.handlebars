@@ -4,7 +4,10 @@
       <a class="text-decoration-none" href="/blog/{{id}}">
         <h3 class="card-title">{{title}}</h3>
       </a>
-      <small> {{format_date post_date}} at {{format_time post_date}}</small>
+      <small class="d-block d-md-inline mb-2 mb-md-0 text-muted">
+        {{format_date post_date}}
+        at
+        {{format_time post_date}}</small>
     </div>
 
     <p class="card-text">{{truncate content 100}}</p>
