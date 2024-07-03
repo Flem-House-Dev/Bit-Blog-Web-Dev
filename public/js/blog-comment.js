@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const pTime = document.querySelector('#post-time');
+    const pTime = document.querySelectorAll('.post-time');
     if (pTime) {
         const dateString = pTime.dataset.date;
         const date = new Date(dateString);
