@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 minute: '2-digit',
                 hour12: true
             };
-            console.log(pTimes);
+            // console.log(pTimes);
             pTime.textContent = date.toLocaleString(undefined, options);
         }
     })
