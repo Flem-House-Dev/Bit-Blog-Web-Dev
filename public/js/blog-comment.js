@@ -1,6 +1,8 @@
-// ---- Post comment ----
+// ---- Post comment handler----
 const commentPostHandler = async () => {
+
     try {
+        // Query selector
         const commentTextContent = document
             .querySelector("#new-comment-textarea")
             .value.trim();
@@ -12,6 +14,7 @@ const commentPostHandler = async () => {
             return;
         }
 
+        // Fetch api
         if (commentPostHandler) {
             const response = await fetch("/api/blog-comment", {
                 method: "POST",
@@ -28,15 +31,17 @@ const commentPostHandler = async () => {
     }
 };
 
-// ----- Update comment -----
-
+// ----- Update comment handler-----
 const commentUpdateHandler = async (event) => {
+
+    // Query selector
     const commentId = event.target.getAttribute("data-comment-id");
     const commentTextArea = document.querySelector(
         `#comment-textarea-${commentId}`
     );
     const commentText = commentTextArea.value.trim();
 
+    // Fetch api
     if (commentText) {
         try {
             const response = await fetch(`/api/blog-comment/${commentId}`, {
@@ -58,14 +63,15 @@ const commentUpdateHandler = async (event) => {
     }
 };
 
-// ----- Delete comment -----
-
+// ----- Delete comment handler -----
 const commentDeleteHandler = async (event) => {
+
+    // Confirm delete
     const confirmDelete = confirm("Are you want to delete this comment?");
 
     if (confirmDelete) {
         try {
-            // console.log("delete button pressed");
+            // Fetch api
             const id = event.target.dataset.commentId;
             const response = await fetch(`../api/blog-comment/${id}`, {
                 method: "DELETE",
@@ -81,27 +87,27 @@ const commentDeleteHandler = async (event) => {
 
 // ---------- Event handlers ----------
 document.addEventListener("DOMContentLoaded", () => {
-    // -- Add comment
     
+    // -- Add comment btn
     document
         .querySelector("#save-comment-btn")
         .addEventListener("click", commentPostHandler);
 
-    // -- Update comment
+    // -- Update comment btn
     const updateButtons = document.querySelectorAll("#update-comment-btn");
 
     updateButtons.forEach((button) => {
         button.addEventListener("click", commentUpdateHandler);
     });
 
-    // -- Delete Comment
+    // -- Delete Comment btn
     const deleteButtons = document.querySelectorAll(".delete-comment");
 
     deleteButtons.forEach((button) => {
         button.addEventListener("click", commentDeleteHandler);
     });
 
-    // -- Open/Close modal
+    // -- Open/Close modal btns
     const commentModals = document.querySelectorAll(".modal");
     commentModals.forEach((modal) => {
         modal.addEventListener("hidden.bs.modal", function () {
@@ -109,17 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
             form.reset();
         });
 
-        // Select text field when udate comment modal opens
+        // Automatically focus text field when new or udate comment modals open
         modal.addEventListener("show.bs.modal", (event) => {
+
+            // query selection for comment modals
             const modalId = event.target.getAttribute("id");
-
             let textArea
-            // const textArea = document.querySelector(
-            //     `#comment-textarea-${modalId.split("-")[2]}`
-            // );
-            // console.log("textArea: ", textArea);
-
-            if(modalId === "new-comment-modal") {
+            if (modalId === "new-comment-modal") {
                 textArea = document.querySelector("#new-comment-textarea");
             }
             else {
@@ -127,9 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 textArea = document.querySelector(`#comment-textarea-${commentId}`);
             }
 
-            console.log("Modal ID: ", modalId);  // Debugging step
-            console.log("Text Area: ", textArea);  // Debugging step
-
+            // Text area focus on modal open
             if (textArea) {
                 setTimeout(() => {
                     textArea.focus();
@@ -141,12 +141,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     var commentModal = document.getElementById('comment-modal');
-    //     var commentForm = document.getElementById('comment-form');
-
-    //     commentModal.addEventListener('hidden.bs.modal', function () {
-    //         commentForm.reset();
-    //     });
-    // });
 });

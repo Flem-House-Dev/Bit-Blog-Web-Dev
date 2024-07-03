@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
     });
     const blogs = dbBlogData.map((blog) => blog.get({ plain: true }));
 
+    // Render to view
     res.render("homepage", {
       blogs,
       loggedIn: req.session.loggedIn,
@@ -54,7 +55,7 @@ router.get("/blog/:id", withAuth, async (req, res) => {
           order: [["post_date", "DESC"]],
         },
       ],
-      
+
     });
 
     if (!dbBlogData) {
@@ -64,13 +65,16 @@ router.get("/blog/:id", withAuth, async (req, res) => {
 
     const blog = dbBlogData.get({ plain: true });
 
+    // Sort comments in desc order by post_date
     blog.comments.sort((a, b) => new Date(b.post_date) - new Date(a.post_date))
 
+    // This part determins if the logged in user is the author of the comment. 
     blog.comments = blog.comments.map(comment => ({
       ...comment,
       isCommenter: comment.author_id === req.session.user_id
     }));
 
+    // render to view
     res.render("blog-page", {
       blog,
       loggedIn: req.session.loggedIn,
@@ -107,6 +111,7 @@ router.get(`/blog-update/:id`, async (req, res) => {
 
     const blog = dbBlogData.get({ plain: true });
 
+    // Render to view
     res.render("blog-update", {
       blog,
       loggedIn: req.session.loggedIn,

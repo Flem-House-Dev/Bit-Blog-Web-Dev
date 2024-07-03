@@ -1,3 +1,4 @@
+// Text area focus on page load
 document.addEventListener('DOMContentLoaded', () => {
     const textArea = document.querySelector('#blog-text-area');
     if (textArea) {
@@ -6,9 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Blog form update handler
 const blogFormUpdateHandler = async (event) => {
     event.preventDefault();
 
+    // Query selection
     const blogForm = document.getElementById("blog-update-form");
 
     const formData = new FormData(blogForm);
@@ -18,9 +21,8 @@ const blogFormUpdateHandler = async (event) => {
         content: formData.get("blog-text-area"),
     };
 
-    // console.log("Blog data: ",blogData);
-
     try {
+        // Fetch api
         const response = await fetch(`/api/blog-form/${blogData.id}`, {
             method: "PUT",
             headers: {
@@ -40,6 +42,7 @@ const blogFormUpdateHandler = async (event) => {
     }
 };
 
+// Event handler
 document
     .querySelector("#blog-update-form")
     .addEventListener("submit", blogFormUpdateHandler);

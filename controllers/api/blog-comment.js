@@ -2,10 +2,9 @@ const router = require('express').Router();
 const { Comment } = require('../../models');
 
 // ---- Post comment ----
-
-router.post("/", async (req,res) => {
+router.post("/", async (req, res) => {
     try {
-        
+
         const newComment = await Comment.create({
             author_id: req.session.user_id,
             blog_id: req.body.blogId,
@@ -22,11 +21,9 @@ router.post("/", async (req,res) => {
 });
 
 // ---- Update Comment ----
-
-router.put("/:id", async (req,res) => {
-
+router.put("/:id", async (req, res) => {
     try {
-        
+
         const commentData = await Comment.update(req.body, {
             where: {
                 id: req.params.id,
@@ -34,7 +31,7 @@ router.put("/:id", async (req,res) => {
             },
         });
 
-        if(!commentData[0]) {
+        if (!commentData[0]) {
             res.status(400).json({ message: "No comment found with this id!" });
             return;
         }
@@ -48,8 +45,7 @@ router.put("/:id", async (req,res) => {
 });
 
 // ---- Delete Comment ----
-
-router.delete("/:id", (req,res) => {
+router.delete("/:id", (req, res) => {
     try {
         Comment.destroy({
             where: {

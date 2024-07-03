@@ -1,15 +1,19 @@
+// Sign up handler function
 const signUpFormHandler = async (event) => {
     event.preventDefault();
 
+    // Display error function
     function displayErrorMessage(message) {
         const errorMessageEl = document.querySelector("#signup-error-message");
         errorMessageEl.textContent = message;
     }
 
+    // Query selectors
     const username = document.querySelector("#signUpUserName").value.trim();
     const email = document.querySelector("#signUpEmail").value.trim();
     const password = document.querySelector("#signUpPw").value.trim();
 
+    // Fetch api
     if (username && email && password) {
         const response = await fetch("/api/users/sign-up", {
             method: "POST",
@@ -18,7 +22,7 @@ const signUpFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            window.location.href = ('/');
+            window.location.href = "/";
         } else {
             const errorData = await response.json();
             if (errorData.errors) {
@@ -36,6 +40,7 @@ const signUpFormHandler = async (event) => {
     }
 };
 
+// Event listener
 document
     .querySelector("#signUpForm")
     .addEventListener("submit", signUpFormHandler);

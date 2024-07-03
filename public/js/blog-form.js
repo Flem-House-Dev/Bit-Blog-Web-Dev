@@ -1,6 +1,8 @@
+// Blog form submit handler
 const blogFormSubmitHandler = async (event) => {
     event.preventDefault();
 
+    // Query selection
     const blogForm = document.getElementById("blog-post-form");
 
     const formData = new FormData(blogForm);
@@ -10,6 +12,7 @@ const blogFormSubmitHandler = async (event) => {
     };
 
     try {
+        // Fetch api
         const response = await fetch("/api/blog-form/", {
             method: "POST",
             headers: {
@@ -29,6 +32,7 @@ const blogFormSubmitHandler = async (event) => {
     }
 };
 
+// Event handlers
 document
     .querySelector("#blog-post-form")
     .addEventListener("submit", blogFormSubmitHandler);

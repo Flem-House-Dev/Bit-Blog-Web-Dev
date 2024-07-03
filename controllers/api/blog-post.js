@@ -21,7 +21,6 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
 
-
     const blogData = await Blog.update(req.body, {
       where: {
         id: req.params.id,

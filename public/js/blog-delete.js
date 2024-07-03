@@ -1,13 +1,15 @@
+// Delete blog handler
 const deleteBlogHandler = async (event) => {
+
+    // Confirm delete
     const confirmDelete = confirm(
         "Are you sure you want to delete this blog post?"
     );
 
     if (confirmDelete) {
         try {
+            // Fetch api
             const id = event.target.dataset.id;
-
-            // console.log("id to delete: ", id);
             const response = await fetch(`../api/blog-delete/${id}`, {
                 method: "DELETE",
             });
@@ -20,6 +22,7 @@ const deleteBlogHandler = async (event) => {
     }
 };
 
+// Event handler
 document
     .querySelector("#delete-post-btn")
     .addEventListener("click", deleteBlogHandler);

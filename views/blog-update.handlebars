@@ -1,20 +1,37 @@
 <div class="container-flex">
-    <form id="blog-update-form" class="blog-form">
-        <input type="hidden" name="blog-id" id="blog-id" value="{{blog.id}}">
-        <div class="mb-3">
-            <label for="blog-form-title" class="form-label">Blog Title</label>
-            <input type="text" class="form-control" id="blog-form-title" name="blog-form-title" maxlength="10"
-                value="{{blog.title}}" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-            <div class="mb-3">
-                <label for="blog-text-area" class="form-label">Content</label>
-                <textarea class="form-control" id="blog-text-area" name="blog-text-area" rows="8"
-                    maxlength="2000">{{blog.content}}</textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="/blog/{{blog.id}}" class="btn btn-danger">Cancel</a>
-    </form>
+
+  <form id="blog-update-form" class="blog-form">
+
+    <input type="hidden" name="blog-id" id="blog-id" value="{{blog.id}}" />
+    <div class="mb-3">
+      <label for="blog-form-title" class="form-label">Blog Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="blog-form-title"
+        name="blog-form-title"
+        maxlength="10"
+        value="{{blog.title}}"
+        aria-describedby="emailHelp"
+      />
+    </div>
+
+    <div class="mb-3">
+      <div class="mb-3">
+        <label for="blog-text-area" class="form-label">Content</label>
+        <textarea
+          class="form-control"
+          id="blog-text-area"
+          name="blog-text-area"
+          rows="8"
+          maxlength="2000"
+        >{{blog.content}}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+      <a href="/blog/{{blog.id}}" class="btn btn-danger">Cancel</a>
+    </div>
+    
+  </form>
 
 </div>
 
