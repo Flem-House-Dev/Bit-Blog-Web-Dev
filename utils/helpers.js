@@ -12,4 +12,10 @@ module.exports = {
             date
         ).getDate()}/${new Date(date).getFullYear()}`;
     },
+    truncate: (text, length) => {
+        if (text.length > length) {
+          return text.substring(0, length) + "...";
+        }
+        return text;
+      },
 };

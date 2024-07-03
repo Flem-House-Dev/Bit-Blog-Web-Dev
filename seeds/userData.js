@@ -12,6 +12,11 @@ const userData = [
     email: "user2@test.com",
     password: "password456",
   },
+  {
+    username: "testuser3",
+    email: "user3@test.com",
+    password: "password456",
+  },
 ];
 
 const seedUsers = async () => {

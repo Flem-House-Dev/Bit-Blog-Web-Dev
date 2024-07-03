@@ -7,7 +7,7 @@
       <small> {{format_date post_date}} at {{format_time post_date}}</small>
     </div>
 
-    <p class="card-text">{{content}}</p>
+    <p class="card-text">{{truncate content 100}}</p>
     <div class="callout">
 
       <p>Author: {{author.username}}</p>
