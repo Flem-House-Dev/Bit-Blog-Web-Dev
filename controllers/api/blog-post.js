@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
     const newBlogPost = await Blog.create({
       ...req.body,
       author_id: req.session.user_id,
-      post_date: new Date(),
+      post_date: new Date().toISOString(),
     });
 
     res.status(201).json(newBlogPost);

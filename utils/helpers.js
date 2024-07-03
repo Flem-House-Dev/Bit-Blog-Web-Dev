@@ -1,21 +1,22 @@
 module.exports = {
     format_time: (date) => {
+        const localDate = new Date(date);
         const options = {
             hour: "numeric",
             minute: "2-digit",
             hour12: true,
         };
-        return date.toLocaleTimeString("en-US", options);
+        return localDate.toLocaleTimeString("en-US", options);
     },
     format_date: (date) => {
-        return `${new Date(date).getMonth() + 1}/${new Date(
-            date
-        ).getDate()}/${new Date(date).getFullYear()}`;
+        const localDate = new Date(date);
+        return `${localDate.getMonth() + 1
+            }/${localDate.getDate()}/${localDate.getFullYear()}`;
     },
     truncate: (text, length) => {
         if (text.length > length) {
-          return text.substring(0, length) + "...";
+            return text.substring(0, length) + "...";
         }
         return text;
-      },
+    },
 };
