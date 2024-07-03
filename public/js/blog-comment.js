@@ -168,8 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const pTime = document.querySelectorAll('.post-time');
-    if (pTime) {
+
+    const pTimes = document.querySelectorAll('.post-time');
+
+    pTimes.forEach(pTime => {
         const dateString = pTime.dataset.date;
         const date = new Date(dateString);
         
@@ -182,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 minute: '2-digit',
                 hour12: true
             };
-            pTime.textContent = date.toLocaleString(undefined, options);
+            pTimes.textContent = date.toLocaleString(undefined, options);
         }
-    }
+    })
 });
