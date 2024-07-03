@@ -43,6 +43,7 @@ const blogFormUpdateHandler = async (event) => {
 };
 
 // Event handler
+
 document
     .querySelector("#blog-update-form")
     .addEventListener("submit", blogFormUpdateHandler);
